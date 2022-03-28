@@ -3,7 +3,7 @@ const Posts = require('../schema/postSchema')
 
 const router = express.Router()
 
-// cache post data
+// cache postdata
 let data;
 
 if (data === undefined) {
