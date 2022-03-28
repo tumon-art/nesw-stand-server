@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 
-// Post Schema 
+// Post  Schema
 const postSchema = new mongoose.Schema({
     img:{type: String, required:true},
     header:{type: String, required:true},
