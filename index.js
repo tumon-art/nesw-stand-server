@@ -3,7 +3,6 @@ const cors = require('cors')
 const express = require('express')
 const mongoose = require('mongoose')
 var device = require('express-device');
-const path = require('path')
 
 const router = require('./routes/Router')
 const app = express()
@@ -13,19 +12,13 @@ app.use(urlencoded({limit: '50mb',extended:false}))
 app.use(express.json({limit: '50mb'}))
 app.use(cors({
     credentials:true,
-    origin:"https://news-stand.vercel.app"
+    origin: true
 }))
 
 app.use(device.capture());
-// app.use(express.static(path.join(__dirname, '../client/out/')));
 
 // Routes 
 app.use(router)
-
-// app.get('/', (req,res) => {
-//     res.sendFile(path.join(__dirname, '../client/out/'));
-//   });
-
 
 // DB Connection
 try {
