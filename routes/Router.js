@@ -1,6 +1,7 @@
 const express = require('express')
 const Posts = require('../schema/postSchema')
 const Login = require('../schema/loginSchema')
+const jwt = require('jsonwebtoken')
 
 const router = express.Router()
 
@@ -76,33 +77,28 @@ router.post('/createpost',async (req,res)=>{
 })
 
 router.post('/login',async (req,res)=>{
-    const create = {
-        username:"admin",
-        password:"admin"
-    }
-    try{
-        const login = await Login.find(create).exec()
+    const info = req.body
 
-        // await login.save()
-        console.log(login)
-        res.status(200).send('hi')
+    try{ // QUERY
+        const login = await Login.findOne({username:info.username}).exec()
+        if(login) {
+            // COMPARE PASSWORD
+            if(info.password === login.password) {
+                // GENARATE TOKEN
+            const token = jwt.sign({
+                username:login.id,
+            },'key')
+
+            res.cookie('token',token,{maxAge: 3000*1000}).end()
+            } else res.status(400).send("Worng Password")
+        } else res.status(400).send('Wrong Info')
+
     } catch(err){
         console.log(err)
         res.end()
     }
 })
 
-// router.get('/:id',async (req,res)=>{
-//     const postId = req.params['id'];
-//     try{
-//         const posts = await Posts.findById(postId)
-//         console.log(posts)
-//         res.status(200).send(posts)
-//     } catch(err){
-//         console.log(err)
-//         res.end()
-//     }
-// })
 
 
 module.exports = router
