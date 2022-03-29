@@ -13,7 +13,7 @@ app.use(urlencoded({limit: '50mb',extended:false}))
 app.use(express.json({limit: '50mb'}))
 app.use(cors({
     credentials:true,
-    origin:['http://localhost:3000',"https://news-stand.vercel.app"]
+    origin:"https://news-stand.vercel.app"
 }))
 
 app.use(device.capture());
