@@ -11,7 +11,11 @@ const app = express()
 
 app.use(urlencoded({limit: '50mb',extended:false}))
 app.use(express.json({limit: '50mb'}))
-app.use(cors())
+app.use(cors({
+    credentials:true,
+    origin:'http://localhost:3000' 
+}))
+
 app.use(device.capture());
 // app.use(express.static(path.join(__dirname, '../client/out/')));
 

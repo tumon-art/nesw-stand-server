@@ -78,7 +78,7 @@ router.post('/createpost',async (req,res)=>{
 
 router.post('/login',async (req,res)=>{
     const info = req.body
-    console.log(req.cookies)
+    // console.log(req.body.token)
     try{ // QUERY
         const login = await Login.findOne({username:info.username}).exec()
         if(login) {
@@ -89,13 +89,24 @@ router.post('/login',async (req,res)=>{
                 username:login.id,
             },'key')
 
-            res.cookie('token',token,{maxAge: 3000*1000}).end()
+            res.cookie('token',token,{
+                maxAge: 3000*1000,
+                // httpOnly:true  
+            }).end()
             } else res.status(400).send("Worng Password")
         } else res.status(400).send('Wrong Info')
 
     } catch(err){
         console.log(err)
         res.end()
+    }
+})
+
+router.post('/autologin',(req,res)=>{
+    const token = req.body.token
+    if(token) {
+        const decode = jwt.verify(token,'key')
+        if (decode) res.send(true)
     }
 })
 
