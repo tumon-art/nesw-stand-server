@@ -1,5 +1,6 @@
 const express = require('express')
 const Posts = require('../schema/postSchema')
+const Login = require('../schema/loginSchema')
 
 const router = express.Router()
 
@@ -68,6 +69,23 @@ router.post('/createpost',async (req,res)=>{
         await posts.save()
         console.log(posts)
         res.end()
+    } catch(err){
+        console.log(err)
+        res.end()
+    }
+})
+
+router.post('/login',async (req,res)=>{
+    const create = {
+        username:"admin",
+        password:"admin"
+    }
+    try{
+        const login = await Login.find(create).exec()
+
+        // await login.save()
+        console.log(login)
+        res.status(200).send('hi')
     } catch(err){
         console.log(err)
         res.end()
