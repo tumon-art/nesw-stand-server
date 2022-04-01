@@ -79,6 +79,7 @@ router.post('/createpost',async (req,res)=>{
 
 router.post('/login',async (req,res)=>{
     const info = req.body
+    console.log(req.cookies)
     try{ // QUERY
         const login = await Login.findOne({username:info.username}).exec()
         if(login) {
