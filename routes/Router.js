@@ -64,6 +64,7 @@ router.get('/getpost',async (req,res)=>{
 
 router.post('/createpost',async (req,res)=>{
     const create = req.body
+    console.log(req.cookies)
     console.log(create)
     try{
         const posts = new Posts(create)
@@ -78,7 +79,6 @@ router.post('/createpost',async (req,res)=>{
 
 router.post('/login',async (req,res)=>{
     const info = req.body
-    // console.log(req.body.token)
     try{ // QUERY
         const login = await Login.findOne({username:info.username}).exec()
         if(login) {
@@ -90,8 +90,8 @@ router.post('/login',async (req,res)=>{
             },'key')
 
             res.cookie('token',token,{
-                maxAge: 3000*1000,
-                // httpOnly:true  
+                maxAge: 2629746000,
+                httpOnly:true  
             }).end()
             } else res.status(400).send("Worng Password")
         } else res.status(400).send('Wrong Info')
@@ -103,7 +103,8 @@ router.post('/login',async (req,res)=>{
 })
 
 router.post('/autologin',(req,res)=>{
-    const token = req.body.token
+    const token = req.cookies.token
+    console.log("token",token)
     if(token) {
         const decode = jwt.verify(token,'key')
         if (decode) res.send(true)
