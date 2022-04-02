@@ -97,7 +97,8 @@ router.post('/login',async (req,res)=>{
             res.cookie('token',token,{
                 maxAge: 2629746000,
                 secure: true,
-                // httpOnly:true  
+                httpOnly: false,
+                sameSite: 'lax' 
             }).end()
             } else res.status(400).send("Worng Password")
         } else res.status(400).send('Wrong Info')
