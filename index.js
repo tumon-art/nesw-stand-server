@@ -19,7 +19,7 @@ const app = express()
 // CORS CONFIG
 const corsConfig = {
     // credentials: true,
-    // origin: true,
+    origin: true,
 };
 
 app.use(cookie())
