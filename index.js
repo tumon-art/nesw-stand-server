@@ -20,9 +20,9 @@ app.use(urlencoded({limit: '50mb',extended:false}))
 app.use(express.json({limit: '50mb'}))
 app.use(cors({
     credentials:true,
-    // origin: true,
+    origin: true,
     
-    origin: ["http://news-stand-next.vercel.app", /\.news-stand-next.vercel\.app$/]
+    // origin: ["http://news-stand-next.vercel.app", /\.news-stand-next.vercel\.app$/]
 }))
 
 app.use(device.capture());
