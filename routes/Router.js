@@ -99,7 +99,7 @@ router.post('/login',async (req,res)=>{
                 expires: new Date('01 12 2021'),
                 secure: true,
                 httpOnly: true,
-                sameSite: 'lax' 
+                // sameSite: 'lax' 
             }).end()
             } else res.status(400).send("Worng Password")
         } else res.status(400).send('Wrong Info')
