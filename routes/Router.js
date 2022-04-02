@@ -98,7 +98,7 @@ router.post('/login',async (req,res)=>{
                 maxAge: 5000,
                 expires: new Date('01 12 2021'),
                 secure: true,
-                httpOnly: true,
+                // httpOnly: true,
                 // sameSite: 'lax' 
             }).end()
             } else res.status(400).send("Worng Password")
