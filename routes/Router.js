@@ -100,7 +100,8 @@ router.post('/login',async (req,res)=>{
                 secure: true,
                 // httpOnly: true,
                 // sameSite: 'lax' 
-            }).end()
+            })
+            res.end()
             } else res.status(400).send("Worng Password")
         } else res.status(400).send('Wrong Info')
 

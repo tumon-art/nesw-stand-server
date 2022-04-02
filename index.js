@@ -21,6 +21,7 @@ app.use(express.json({limit: '50mb'}))
 app.use(cors({
     credentials:true,
     // origin: true,
+    
     origin: ["http://news-stand-next.vercel.app", /\.news-stand-next.vercel\.app$/]
 }))
 
