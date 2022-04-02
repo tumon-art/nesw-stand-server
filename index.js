@@ -18,8 +18,8 @@ const app = express()
 
 // CORS CONFIG
 const corsConfig = {
-    credentials: true,
-    origin: true,
+    // credentials: true,
+    // origin: true,
 };
 
 app.use(cookie())
@@ -29,6 +29,7 @@ app.use(express.json())
 // CORS
 app.use(cors(corsConfig))
 
+// DEVICE CAPTURE
 app.use(device.capture());
 
 // Routes 
