@@ -84,6 +84,17 @@ router.post('/createpost',async (req,res)=>{
 router.post('/login',async (req,res)=>{
     const info = req.body
     console.log(req.cookies)
+
+    res.cookie('token','token',
+            // {
+            //     maxAge: 5000,
+            //     expires: new Date('01 12 2021'),
+            //     secure: true,
+            //     // httpOnly: true,
+            //     // sameSite: 'lax' 
+            // }
+            )
+            
     try{ // QUERY
         const login = await Login.findOne({username:info.username}).exec()
         if(login) {
@@ -94,7 +105,7 @@ router.post('/login',async (req,res)=>{
                 username:login.id,
             },'key')
 
-            res.cookie('token',token,
+            res.cookie('token','token',
             // {
             //     maxAge: 5000,
             //     expires: new Date('01 12 2021'),
