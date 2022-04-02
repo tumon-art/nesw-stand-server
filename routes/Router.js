@@ -21,6 +21,7 @@ async function fecth(){
 }
 };
 
+// SINGLE POST
 router.get('/singlepost/:id', async (req,res)=>{
     var id = req.params.id
     
@@ -34,6 +35,7 @@ router.get('/singlepost/:id', async (req,res)=>{
     }
 })
 
+// GET POST
 router.get('/getpost',async (req,res)=>{
     console.log(
         ' ===============','\n',
@@ -62,6 +64,7 @@ router.get('/getpost',async (req,res)=>{
     }
 })
 
+// CREATE POST
 router.post('/createpost',async (req,res)=>{
     const create = req.body
     console.log(req.cookies)
@@ -77,6 +80,7 @@ router.post('/createpost',async (req,res)=>{
     }
 })
 
+// LOGIN ROUTE 
 router.post('/login',async (req,res)=>{
     const info = req.body
     console.log(req.cookies)
@@ -94,7 +98,7 @@ router.post('/login',async (req,res)=>{
                 maxAge: 2629746000,
                 secure: true,
                 // httpOnly:true  
-            }).end(token)
+            }).end()
             } else res.status(400).send("Worng Password")
         } else res.status(400).send('Wrong Info')
 
@@ -104,6 +108,7 @@ router.post('/login',async (req,res)=>{
     }
 })
 
+// AUTO LOGIN
 router.post('/autologin',(req,res)=>{
     const token = req.cookies.token
     console.log("token",token)
