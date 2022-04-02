@@ -94,34 +94,35 @@ router.post('/login',async (req,res)=>{
             //     // sameSite: 'lax' 
             // }
             )
-            
-    try{ // QUERY
-        const login = await Login.findOne({username:info.username}).exec()
-        if(login) {
-            // COMPARE PASSWORD
-            if(info.password === login.password) {
-                // GENARATE TOKEN
-            const token = jwt.sign({
-                username:login.id,
-            },'key')
-
-            res.cookie('token','token',
-            // {
-            //     maxAge: 5000,
-            //     expires: new Date('01 12 2021'),
-            //     secure: true,
-            //     // httpOnly: true,
-            //     // sameSite: 'lax' 
-            // }
-            )
-            res.end()
-            } else res.status(400).send("Worng Password")
-        } else res.status(400).send('Wrong Info')
-
-    } catch(err){
-        console.log(err)
         res.end()
-    }
+
+    // try{ // QUERY
+    //     const login = await Login.findOne({username:info.username}).exec()
+    //     if(login) {
+    //         // COMPARE PASSWORD
+    //         if(info.password === login.password) {
+    //             // GENARATE TOKEN
+    //         const token = jwt.sign({
+    //             username:login.id,
+    //         },'key')
+
+    //         res.cookie('token','token',
+    //         // {
+    //         //     maxAge: 5000,
+    //         //     expires: new Date('01 12 2021'),
+    //         //     secure: true,
+    //         //     // httpOnly: true,
+    //         //     // sameSite: 'lax' 
+    //         // }
+    //         )
+    //         res.end()
+    //         } else res.status(400).send("Worng Password")
+    //     } else res.status(400).send('Wrong Info')
+
+    // } catch(err){
+    //     console.log(err)
+    //     res.end()
+    // }
 })
 
 // AUTO LOGIN
