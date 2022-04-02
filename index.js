@@ -15,17 +15,19 @@ const app = express()
 //     next();
 //   });
   
+
+// CORS CONFIG
+const corsConfig = {
+    credentials: true,
+    origin: true,
+};
+
 app.use(cookie())
 app.use(urlencoded({limit: '50mb',extended:false}))
 app.use(express.json({limit: '50mb'}))
-app.use(cors(
-    {
-    // credentials:true,
-    oirgin: true,
 
-    // origin: ["http://news-stand-next.vercel.app", /\.news-stand-next.vercel\.app$/]
-}
-))
+// CORS
+app.use(cors(corsConfig))
 
 app.use(device.capture());
 
