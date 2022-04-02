@@ -8,12 +8,12 @@ const cookie = require("cookie-parser")
 const router = require('./routes/Router')
 const app = express()
 
-app.use(function(req, res, next) {
-    res.header('Access-Control-Allow-Origin', yourExactHostname);
-    res.header('Access-Control-Allow-Credentials', true);
-    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
-    next();
-  });
+// app.use(function(req, res, next) {
+//     res.header('Access-Control-Allow-Origin', yourExactHostname);
+//     res.header('Access-Control-Allow-Credentials', true);
+//     res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+//     next();
+//   });
   
 app.use(cookie())
 app.use(urlencoded({limit: '50mb',extended:false}))
