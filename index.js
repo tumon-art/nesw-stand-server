@@ -23,8 +23,8 @@ const corsConfig = {
 };
 
 app.use(cookie())
-app.use(urlencoded({limit: '50mb',extended:false}))
-app.use(express.json({limit: '50mb'}))
+app.use(urlencoded({extended:false}))
+app.use(express.json())
 
 // CORS
 app.use(cors(corsConfig))
