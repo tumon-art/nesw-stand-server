@@ -86,7 +86,6 @@ router.post('/createpost',async (req,res)=>{
 router.post('/login',async (req,res)=>{
     const info = req.body
     console.log(req.cookies)
-    console.log(info)
 
     try{ // QUERY
         const login = await Login.findOne({username:info.username}).exec()
@@ -100,12 +99,11 @@ router.post('/login',async (req,res)=>{
 
             res.cookie('token',token,{
                 maxAge:25200000 ,
-                // secure: true,
-                // httpOnly: true,
-                // sameSite: 'lax' 
+                secure: true,
+                httpOnly: true,
+                sameSite: 'none' 
             })
-            // res.cookie('token','token')
-            res.send('hi')
+            res.end()
             } 
             
             else res.status(400).send("Worng Password")
