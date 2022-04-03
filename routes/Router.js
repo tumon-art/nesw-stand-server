@@ -96,12 +96,12 @@ router.post('/login',async (req,res)=>{
             },'key')
 
             res.cookie('token',token,
-            {
-                maxAge:25200000 ,
-                secure: true,
-                httpOnly: true,
-                sameSite: 'lax' 
-            }
+            // {
+            //     maxAge:25200000 ,
+            //     secure: true,
+            //     httpOnly: true,
+            //     sameSite: 'lax' 
+            // }
             )
             res.end()
             } else res.status(400).send("Worng Password")
