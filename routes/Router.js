@@ -83,7 +83,7 @@ router.post('/createpost',async (req,res)=>{
 // LOGIN ROUTE 
 router.get('/login',async (req,res)=>{
     const info = req.body
-    console.log(req.cookies)
+    console.log(req.cookies,'hi')
 
     try{ // QUERY
         const login = await Login.findOne({username:info.username}).exec()
@@ -115,7 +115,7 @@ router.get('/login',async (req,res)=>{
 })
 
 // AUTO LOGIN
-router.post('/autologin',(req,res)=>{
+router.get('/autologin',(req,res)=>{
     const token = req.cookies.token
     console.log("token",token)
     if(token) {
