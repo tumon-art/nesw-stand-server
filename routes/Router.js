@@ -81,9 +81,9 @@ router.post('/createpost',async (req,res)=>{
 })
 
 // LOGIN ROUTE 
-router.get('/login',async (req,res)=>{
+router.post('/login',async (req,res)=>{
     const info = req.body
-    console.log(req.cookies,'hi')
+    console.log(req.cookies)
 
     try{ // QUERY
         const login = await Login.findOne({username:info.username}).exec()
@@ -95,14 +95,13 @@ router.get('/login',async (req,res)=>{
                 username:login.id,
             },'key')
 
-            res.cookie('token','token',
-            // {
-            //     maxAge: 5000,
-            //     expires: new Date('01 12 2021'),
-            //     secure: true,
-            //     // httpOnly: true,
-            //     // sameSite: 'lax' 
-            // }
+            res.cookie('token',token,
+            {
+                maxAge:25200000 ,
+                secure: true,
+                httpOnly: true,
+                sameSite: 'lax' 
+            }
             )
             res.end()
             } else res.status(400).send("Worng Password")
@@ -115,7 +114,7 @@ router.get('/login',async (req,res)=>{
 })
 
 // AUTO LOGIN
-router.get('/autologin',(req,res)=>{
+router.post('/autologin',(req,res)=>{
     const token = req.cookies.token
     console.log("token",token)
     if(token) {
