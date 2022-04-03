@@ -80,31 +80,36 @@ router.post('/createpost',async (req,res)=>{
     }
 })
 
+
+
 // LOGIN ROUTE 
 router.post('/login',async (req,res)=>{
     const info = req.body
     console.log(req.cookies)
+    console.log(info)
 
     try{ // QUERY
         const login = await Login.findOne({username:info.username}).exec()
         if(login) {
             // COMPARE PASSWORD
             if(info.password === login.password) {
-                // GENARATE TOKEN
+            // GENARATE TOKEN
             const token = jwt.sign({
                 username:login.id,
             },'key')
 
-            res.cookie('token',token,
-            {
-                // maxAge:25200000 ,
-                // secure: true,
-                // httpOnly: true,
+            res.cookie('token',token,{
+                maxAge:25200000 ,
+                secure: true,
+                httpOnly: true,
                 sameSite: 'lax' 
-            }
-            )
-            res.end()
-            } else res.status(400).send("Worng Password")
+            })
+            // res.cookie('token','token')
+            res.send('hi')
+            } 
+            
+            else res.status(400).send("Worng Password")
+
         } else res.status(400).send('Wrong Info')
 
     } catch(err){
@@ -112,6 +117,7 @@ router.post('/login',async (req,res)=>{
         res.end()
     }
 })
+
 
 // AUTO LOGIN
 router.post('/autologin',(req,res)=>{
@@ -122,7 +128,6 @@ router.post('/autologin',(req,res)=>{
         if (decode) res.send(true)
     }
 })
-
 
 
 module.exports = router
