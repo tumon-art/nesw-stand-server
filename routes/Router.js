@@ -100,9 +100,9 @@ router.post('/login',async (req,res)=>{
 
             res.cookie('token',token,{
                 maxAge:25200000 ,
-                secure: true,
-                httpOnly: true,
-                sameSite: 'lax' 
+                // secure: true,
+                // httpOnly: true,
+                // sameSite: 'lax' 
             })
             // res.cookie('token','token')
             res.send('hi')
@@ -122,7 +122,7 @@ router.post('/login',async (req,res)=>{
 // AUTO LOGIN
 router.post('/autologin',(req,res)=>{
     const token = req.cookies.token
-    console.log("token",token)
+    console.log("Autologin",token)
     if(token) {
         const decode = jwt.verify(token,'key')
         if (decode) res.send(true)
