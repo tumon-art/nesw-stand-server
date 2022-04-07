@@ -73,10 +73,10 @@ router.post('/createpost',async (req,res)=>{
         const posts = new Posts(create)
         await posts.save()
         console.log(posts)
-        res.end('ok')
+        res.end('Posting Success!')
     } catch(err){
         console.log(err)
-        res.end('not ok')
+        res.status(400).end('Posting Failed!')
     }
 })
 
