@@ -6,7 +6,7 @@ const jwt = require('jsonwebtoken')
 const router = express.Router()
 
 // cache postdata
-let data;
+var data;
 
 if (data === undefined) {
     fecth()
@@ -124,6 +124,19 @@ router.post('/autologin',(req,res)=>{
     if(token) {
         const decode = jwt.verify(token,'key')
         if (decode) res.send(true)
+    }
+})
+
+// ASIA 
+router.get('/asia',(req,res)=>{
+   
+    try{
+        const onePost = data.filter((e)=> e.cont == 'Asia')
+        console.log(onePost)
+        res.status(200).send(onePost)
+    } catch(err){
+        console.log(err)
+        res.status(400).json({message:"Failed"})
     }
 })
 
