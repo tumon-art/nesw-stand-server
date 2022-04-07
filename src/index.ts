@@ -1,12 +1,12 @@
 const { urlencoded } = require('express')
 const cors = require('cors')
-const express = require('express')
+import express,{ Application } from "express"
+
 const mongoose = require('mongoose')
-var device = require('express-device');
 const cookie = require("cookie-parser")
 
 const router = require('./routes/Router')
-const app = express()
+const app:Application = express()
 
 // app.use(function(req, res, next) {
 //     res.header('Access-Control-Allow-Origin', yourExactHostname);
@@ -29,8 +29,6 @@ app.use(express.json())
 // CORS
 app.use(cors(corsConfig))
 
-// DEVICE CAPTURE
-app.use(device.capture());
 
 // Routes 
 app.use(router)

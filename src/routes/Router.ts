@@ -1,12 +1,15 @@
+import { Request, Response } from "express"
+
 const express = require('express')
 const Posts = require('../schema/postSchema')
 const Login = require('../schema/loginSchema')
 const jwt = require('jsonwebtoken')
+const Opinion = require("../schema/postOpinion")
 
 const router = express.Router()
 
 // cache postdata
-var data;
+var data:any;
 
 if (data === undefined) {
     fecth()
@@ -22,11 +25,11 @@ async function fecth(){
 };
 
 // SINGLE POST
-router.get('/singlepost/:id', async (req,res)=>{
+router.get('/singlepost/:id', async (req:Request,res:Response)=>{
     var id = req.params.id
     
     try{
-        const onePost = data.filter((e)=> e.id === id)
+        const onePost = data.filter((e:any)=> e.id === id)
         // console.log(onePost)
         res.status(200).send(onePost)
     } catch(err){
@@ -36,11 +39,8 @@ router.get('/singlepost/:id', async (req,res)=>{
 })
 
 // GET POST
-router.get('/getpost',async (req,res)=>{
-    console.log(
-        ' ===============','\n',
-        req.device.type.toUpperCase()
-    )
+router.get('/getpost',async (req:Request,res:Response)=>{
+    
     if (data !== undefined ) {
         try{
             console.log("Getting From Cache",'\n',
@@ -65,10 +65,9 @@ router.get('/getpost',async (req,res)=>{
 })
 
 // CREATE POST
-router.post('/createpost',async (req,res)=>{
+router.post('/createpost',async (req:Request,res:Response)=>{
     const create = req.body
-    console.log(req.cookies)
-    console.log(create)
+
     try{
         const posts = new Posts(create)
         await posts.save()
@@ -83,9 +82,8 @@ router.post('/createpost',async (req,res)=>{
 
 
 // LOGIN ROUTE 
-router.post('/login',async (req,res)=>{
+router.post('/login',async (req:Request,res:Response)=>{
     const info = req.body
-    console.log(req.cookies)
 
     try{ // QUERY
         const login = await Login.findOne({username:info.username}).exec()
@@ -118,7 +116,7 @@ router.post('/login',async (req,res)=>{
 
 
 // AUTO LOGIN
-router.post('/autologin',(req,res)=>{
+router.post('/autologin',(req:Request,res:Response)=>{
     const token = req.cookies.token
     console.log("Autologin",token)
     if(token) {
@@ -128,15 +126,29 @@ router.post('/autologin',(req,res)=>{
 })
 
 // ASIA 
-router.get('/asia',(req,res)=>{
+router.get('/asia',(req:Request,res:Response)=>{
    
     try{
-        const onePost = data.filter((e)=> e.cont == 'Asia')
+        const onePost = data.filter((e:any)=> e.cont == 'Asia')
         console.log(onePost)
         res.status(200).send(onePost)
     } catch(err){
         console.log(err)
         res.status(400).json({message:"Failed"})
+    }
+})
+
+// ADD OPINION || POST 
+router.post('/addopinion',(req:Request,res:Response)=>{
+    const post = req.body;
+
+    try{
+        const opinion = new Opinion(post)
+
+        res.end('Posting Success!')
+    } catch(err:any){
+        console.log(err.message)
+        res.status(400).json({message:"Posting Failed!"})
     }
 })
 
