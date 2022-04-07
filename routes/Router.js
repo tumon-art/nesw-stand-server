@@ -76,7 +76,7 @@ router.post('/createpost',async (req,res)=>{
         res.end('Posting Success!')
     } catch(err){
         console.log(err)
-        res.status(400).end('Posting Failed!')
+        res.end('Posting Failed!')
     }
 })
 
