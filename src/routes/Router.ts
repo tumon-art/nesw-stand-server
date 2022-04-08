@@ -59,15 +59,16 @@ router.get('/getpost',async (req:Request,res:Response)=>{
             res.status(200).send(posts)
         } catch(err){
             console.log(err)
-            res.end()
+            res.end({message:'Not Found'})
         }
     }
 })
 
 // CREATE POST
 router.post('/createpost',async (req:Request,res:Response)=>{
-    const create = req.body
 
+    const create = req.body
+    console.log('hi')
     try{
         const posts = new Posts(create)
         await posts.save()
@@ -75,7 +76,7 @@ router.post('/createpost',async (req:Request,res:Response)=>{
         res.end('Posting Success!')
     } catch(err){
         console.log(err)
-        res.status(401).json({message:"Posting Failed!"})
+        res.status(400).send({message:"Posting Failed!"})
     }
 })
 
@@ -138,19 +139,29 @@ router.get('/asia',(req:Request,res:Response)=>{
     }
 })
 
-// ADD OPINION || POST 
-router.post('/addopinion',(req:Request,res:Response)=>{
-    const post = req.body;
 
+
+// ADD OPINION || POST 
+router.post('/addopinion',async (req:Request,res:Response)=>{
+    const post = req.body;
     try{
         const opinion = new Opinion(post)
-
+        await opinion.save()
         res.end('Posting Success!')
-    } catch(err:any){
-        console.log(err.message)
-        res.status(400).json({message:"Posting Failed!"})
+    } catch(err){
+        console.log(err)
+        res.status(400).send({message:"Posting Failed!"})
     }
 })
 
+// GET OPINION || GET
+router.get('/getopinion',async (req:Request,res:Response)=>{
+    try{
+        const opinions = await Opinion.find()
+        res.send(opinions)
+    } catch(err){
+        res.status(400).send({message:'Not Found'})
+    }
+})
 
 module.exports = router

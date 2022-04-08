@@ -6,6 +6,7 @@ interface Opinion {
     post: String;
     writerImg: String;
     writerBio: String;
+    writerName: String;
 }
 
 // POST OPINION  SCHEMA
@@ -15,6 +16,7 @@ const postOpinion = new Schema<Opinion>({
     post:{type: String, required:true},
     writerImg:{type: String, required:true},
     writerBio:{type:String, required:true},
+    writerName:{type:String, required:true}
 })
 
 module.exports = model<Opinion>("Opinion",postOpinion)
