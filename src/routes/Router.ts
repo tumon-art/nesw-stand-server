@@ -142,7 +142,7 @@ router.get('/asia',(req:Request,res:Response)=>{
 
 
 // ADD OPINION || POST 
-router.post('/addopinion',async (req:Request,res:Response)=>{
+router.post('/create-opinion',async (req:Request,res:Response)=>{
     const post = req.body;
     try{
         const opinion = new Opinion(post)
@@ -161,6 +161,22 @@ router.get('/getopinion',async (req:Request,res:Response)=>{
         res.send(opinions)
     } catch(err){
         res.status(400).send({message:'Not Found'})
+    }
+})
+
+// GET SINGLE OPINION 
+router.get('/opinion/:id', async (req:Request,res:Response)=>{
+    var id = req.params.id
+    
+    try{
+        const opinions = await Opinion.find()
+        const oneOpinion = opinions.filter((e:any)=> e.id === id)
+        console.log(oneOpinion)
+        // console.log(onePost)
+        res.status(200).send(oneOpinion)
+    } catch(err){
+        console.log(err)
+        res.send({message: "Failed"})
     }
 })
 
