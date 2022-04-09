@@ -119,10 +119,14 @@ router.post('/login',async (req:Request,res:Response)=>{
 // AUTO LOGIN
 router.post('/autologin',(req:Request,res:Response)=>{
     const token = req.cookies.token
-    console.log("Autologin",token)
-    if(token) {
-        const decode = jwt.verify(token,'key')
-        if (decode) res.send(true)
+    
+    try{
+        if(token) {
+            const decode = jwt.verify(token,'key')
+            if (decode) res.send(true)
+        }
+    } catch(err){
+        res.status(400).send({message:"failed!"})
     }
 })
 
@@ -131,6 +135,19 @@ router.get('/asia',(req:Request,res:Response)=>{
    
     try{
         const onePost = data.filter((e:any)=> e.cont == 'Asia')
+        console.log(onePost)
+        res.status(200).send(onePost)
+    } catch(err){
+        console.log(err)
+        res.status(400).json({message:"Failed"})
+    }
+})
+
+// EUROPE
+router.get('/europe',(req:Request,res:Response)=>{
+   
+    try{
+        const onePost = data.filter((e:any)=> e.cont == 'Europe')
         console.log(onePost)
         res.status(200).send(onePost)
     } catch(err){
