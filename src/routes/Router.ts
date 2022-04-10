@@ -156,6 +156,19 @@ router.get('/europe',(req:Request,res:Response)=>{
     }
 })
 
+// NORTH AMERICA
+router.get('/northamerica',(req:Request,res:Response)=>{
+   
+    try{
+        const onePost = data.filter((e:any)=> e.cont == 'North America')
+        console.log(onePost)
+        res.status(200).send(onePost)
+    } catch(err){
+        console.log(err)
+        res.status(400).json({message:"Failed"})
+    }
+})
+
 
 
 // ADD OPINION || POST 
